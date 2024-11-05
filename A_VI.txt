@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include "pico/stdlib.h"
+#include "pico/binary_info.h"
+#include "hardware/i2c.h"
+
+
+int main() {
+    
+    stdio_init_all();
+#if !defined(i2c_default) || !defined(PICO_DEFAULT_I2C_SDA_GP2) || !defined(PICO_DEFAULT_I2C_SCL_GP3)
+puts("Pines por default");
+#else
+    // definimos el puerto GP2 y Gp3 para SDA y SCL
+
+    i2c_init(i2c_default, 100 * 1000);
+    gpio_set_function(PICO_DEFAULT_I2C_SDA_GP2, GPIO_FUNC_I2C);
+    gpio_set_function(PICO_DEFAULT_I2C_SCL_GP3, GPIO_FUNC_I2C);
+    gpio_pull_up(PICO_DEFAULT_I2C_SDA_GP2);
+    gpio_pull_up(PICO_DEFAULT_I2C_SCL_GP3);
+        bi_decl(bi_2pins_with_func(PICO_DEFAULT_I2C_SDA_GP2, PICO_DEFAULT_I2C_SCL_GP3, GPIO_FUNC_I2C));
+        printf("\nI2C Bus Scan\n");
+        printf("Martagon Carrillo Uriel Isai\n");
+    static int i2c_read_timeout_us (i2c_inst_t *i2c, uint8_t addr, uint8_t *dst, size_t len, bool nostop, uint timeout_us)
+// bytes de la dirección con tiempo de espera
+
+    for (int addr = 0; addr < (1 << 7); ++addr) {
+        if (addr % 16 == 0) {
+            printf("%02x ", addr);
+        }
+
+#endif
+}
